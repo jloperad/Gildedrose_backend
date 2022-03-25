@@ -84,6 +84,7 @@ public class ItemService {
     }
 
     public Item updateItem(int id, Item item) {
+        findById(id);
         return itemRepository.save(new Item(id, item.name, item.sellIn, item.quality, item.type));
     }
 
