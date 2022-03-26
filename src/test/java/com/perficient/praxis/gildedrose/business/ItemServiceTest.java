@@ -344,4 +344,62 @@ public class ItemServiceTest {
         verify(itemRepository,times(1)).save(any());
     }
 
+    @Test
+    /**
+     * GIVEN any valid item
+     * WHEN createItem method is called
+     * THEN the service should create an item
+     */
+    public void testCreateItem(){
+
+        var item = new Item();
+        when(itemService.createItem(item)).thenAnswer(i -> i.getArguments()[0]);
+    }
+
+    @Test
+    /**
+     * GIVEN any valid id and an item with the same or different
+     * WHEN updateItem method is called
+     * THEN the service should update the item
+     */
+    public void testUpdateItemFound(){
+
+        var item = new Item(0, "Alpinito", 60, 35, Item.Type.NORMAL);
+        var newItem = new Item(0, "Alpin", 30, 15, Item.Type.NORMAL);
+        when(itemRepository.findById(0)).thenReturn(Optional.of(item));
+        when(itemRepository.save(any())).thenReturn(newItem);
+        Item updatedItem = itemService.updateItem(0,newItem);
+
+        assertEquals(newItem,updatedItem);
+    }
+
+    @Test
+    /**
+     * GIVEN a non-existent id
+     * WHEN updateItem method is called
+     * THEN the service should throw an exception
+     */
+    public void testUpdateItemNotFound(){
+
+        var item = new Item(0, "Bon Yurt", 60, 15, Item.Type.NORMAL);
+        when(itemRepository.findById(anyInt())).thenReturn(Optional.empty());
+        assertThrows(ResourceNotFoundException.class, () -> itemService.updateItem(0,item));
+    }
+
+    @Test
+    /**
+     * GIVEN one or more valid items
+     * WHEN listItems method is called
+     * THEN the service should return a list of all created items
+     */
+    public void testListItems(){
+
+        var item1 = new Item(0, "Pringles", 100, 50, Item.Type.LEGENDARY);
+        var item2 = new Item(1, "Bianchi", 40, 35, Item.Type.NORMAL);
+        when(itemRepository.findAll()).thenReturn(List.of(item1,item2));
+
+        List<Item> resultList = itemService.listItems();
+        assertEquals(item1,resultList.get(0));
+        assertEquals(item2,resultList.get(1));
+    }
 }

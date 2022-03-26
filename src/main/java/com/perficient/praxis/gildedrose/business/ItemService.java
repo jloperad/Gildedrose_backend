@@ -84,8 +84,12 @@ public class ItemService {
     }
 
     public Item updateItem(int id, Item item) {
-        findById(id);
-        return itemRepository.save(new Item(id, item.name, item.sellIn, item.quality, item.type));
+        if (itemRepository.findById(id).isPresent()){
+            return itemRepository.save(new Item(id, item.name, item.sellIn, item.quality, item.type));
+        }
+        else{
+            throw new ResourceNotFoundException("");
+        }
     }
 
     public List<Item> listItems(){
