@@ -35,14 +35,14 @@ public class ItemService {
                 reduceSellIn(item);
             }
 
-            if(item.type.equals(Item.Type.TICKETS)){
-                changeTicketsQuality(item,sellDatePassed);
-                reduceSellIn(item);
-            }
-
             if(item.type.equals(Item.Type.AGED)){
                 int adjustment = sellDatePassed ? baseAdjustment*2 : baseAdjustment;
                 changeQuality(item, adjustment);
+                reduceSellIn(item);
+            }
+
+            if(item.type.equals(Item.Type.TICKETS)){
+                changeTicketsQuality(item,sellDatePassed);
                 reduceSellIn(item);
             }
 
@@ -59,7 +59,7 @@ public class ItemService {
         int minQuality = 0;
         boolean inRange = newQuality <=maxQuality && newQuality>=minQuality;
         if (inRange){
-            item.quality += adjustment;
+            item.quality = newQuality;
         }
     }
 
@@ -81,7 +81,8 @@ public class ItemService {
 
 
     public void reduceSellIn(Item item){
-        item.sellIn -= 1;
+        int degradeRate = 1;
+        item.sellIn -= degradeRate;
     }
 
 
