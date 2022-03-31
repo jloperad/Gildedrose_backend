@@ -20,62 +20,69 @@ public class ItemService {
         this.items = items;
     }
 
+
     public List<Item> updateQuality() {
         var itemsList = itemRepository.findAll();
         var items = itemsList.toArray(new Item[itemsList.size()]);
+        int baseAdjustment = 1;
 
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].type.equals(Item.Type.AGED)
-                    && !items[i].type.equals(Item.Type.TICKETS)) {
-                if (items[i].quality > 0) {
-                    if (!items[i].type.equals(Item.Type.LEGENDARY)) {
-                        items[i].quality = items[i].quality - 1;
-                    }
-                }
-            } else {
-                if (items[i].quality < 50) {
-                    items[i].quality = items[i].quality + 1;
+        for (Item item: itemsList) {
+            boolean sellDatePassed = item.sellIn < 1;
 
-                    if (items[i].type.equals(Item.Type.TICKETS)) {
-                        if (items[i].sellIn < 11) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-
-                        if (items[i].sellIn < 6) {
-                            if (items[i].quality < 50) {
-                                items[i].quality = items[i].quality + 1;
-                            }
-                        }
-                    }
-                }
+            if(item.type.equals(Item.Type.NORMAL)){
+                int adjustment = sellDatePassed ? baseAdjustment*2 : baseAdjustment;
+                changeQuality(item, -adjustment);
+                reduceSellIn(item);
             }
 
-            if (!items[i].type.equals(Item.Type.LEGENDARY)) {
-                items[i].sellIn = items[i].sellIn - 1;
+            if(item.type.equals(Item.Type.AGED)){
+                int adjustment = sellDatePassed ? baseAdjustment*2 : baseAdjustment;
+                changeQuality(item, adjustment);
+                reduceSellIn(item);
             }
 
-            if (items[i].sellIn < 0) {
-                if (!items[i].type.equals(Item.Type.AGED)) {
-                    if (!items[i].type.equals(Item.Type.TICKETS)) {
-                        if (items[i].quality > 0) {
-                            if (!items[i].type.equals(Item.Type.LEGENDARY)) {
-                                items[i].quality = items[i].quality - 1;
-                            }
-                        }
-                    } else {
-                        items[i].quality = items[i].quality - items[i].quality;
-                    }
-                } else {
-                    if (items[i].quality < 50) {
-                        items[i].quality = items[i].quality + 1;
-                    }
-                }
+            if(item.type.equals(Item.Type.TICKETS)){
+                changeTicketsQuality(item,sellDatePassed);
+                reduceSellIn(item);
             }
-            itemRepository.save(items[i]);
+
+
+            itemRepository.save(item);
         }
         return Arrays.asList(items);
+    }
+
+
+    public void changeQuality(Item item, int adjustment){
+        int newQuality = item.quality+adjustment;
+        int maxQuality = 50;
+        int minQuality = 0;
+        boolean inRange = newQuality <=maxQuality && newQuality>=minQuality;
+        if (inRange){
+            item.quality = newQuality;
+        }
+    }
+
+    private void changeTicketsQuality(Item item, boolean sellDatePassed) {
+        int doubleDate = 10;
+        int tripleDate = 5;
+        changeQuality(item, 1);
+        if (item.sellIn <= doubleDate) {
+            changeQuality(item, 1);
+        }
+
+        if (item.sellIn <= tripleDate) {
+            changeQuality(item, 1);
+        }
+        if (sellDatePassed) {
+            item.quality = 0;
+        }
+    }
+
+
+    public void reduceSellIn(Item item){
+        int degradeRate = 1;
+        item.sellIn -= degradeRate;
     }
 
 
