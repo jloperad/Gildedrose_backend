@@ -3,7 +3,7 @@ Description=Start app
 
 [Service]
 Type=oneshot
-ExecStart=/home/vagrant/script
+ExecStart=/home/vagrant/startapp.sh
 
 [Install]
 WantedBy=multi-user.target
