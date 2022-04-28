@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  bd:
+    container_name: "my-postgres"
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=secret
+
+  backend:
+    container_name: "backend"
+    build: .
+    ports:
+      - 80:8080
+    environment:
+      - DATABASE_HOST=bd
+    links:
+      - bd
