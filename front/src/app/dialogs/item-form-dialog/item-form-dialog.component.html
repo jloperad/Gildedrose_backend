@@ -1,0 +1,60 @@
+<div class="item-form-dialog-container">
+  <h2>{{ isUpdating ? "Updating item" : "Add new Item" }}</h2>
+
+  <div
+    data-automation="item-form"
+    [formGroup]="form"
+    class="item-form-dialog-controls"
+  >
+    <mat-form-field data-automation="item-form-name" appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field data-automation="item-form-sell-in" appearance="outline">
+      <mat-label>Sell In</mat-label>
+      <input matInput formControlName="sellIn" type="number" />
+    </mat-form-field>
+
+    <mat-form-field data-automation="item-form-quality" appearance="outline">
+      <mat-label>Quality</mat-label>
+      <input matInput formControlName="quality" type="number" />
+      <mat-error *ngIf="form.get('quality')?.hasError('min')">
+        Expected value between 0 and 80
+      </mat-error>
+      <mat-error *ngIf="form.get('quality')?.hasError('max')">
+        Expected value between 0 and 80
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field data-automation="item-form-type" appearance="outline">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <ng-container *ngFor="let type of types">
+          <mat-option [value]="type">{{ type }}</mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="item-form-dialog-actions">
+    <button
+      data-automation="item-form-confirm-button"
+      mat-raised-button
+      color="primary"
+      [disabled]="!form.valid"
+      (click)="onConfirm()"
+    >
+      {{ isUpdating ? "Update" : "Add" }}
+    </button>
+
+    <button
+      data-automation="item-form-cancel-button"
+      mat-stroked-button
+      color="primary"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

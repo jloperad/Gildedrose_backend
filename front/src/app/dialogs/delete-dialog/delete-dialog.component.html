@@ -1,0 +1,25 @@
+<div class="delete-dialog-container">
+  <h2>
+    Deleting <span class="delete-dialog-identifier">{{ name }}</span>
+  </h2>
+  <h3>Are you sure you want to delete it?</h3>
+
+  <div class="delete-dialog-actions">
+    <button
+      data-automation="delete-dialog-confirm-button"
+      mat-raised-button
+      color="primary"
+      (click)="onDelete()"
+    >
+      Delete
+    </button>
+    <button
+      data-automation="delete-dialog-cancel-button"
+      mat-stroked-button
+      color="primary"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+  </div>
+</div>

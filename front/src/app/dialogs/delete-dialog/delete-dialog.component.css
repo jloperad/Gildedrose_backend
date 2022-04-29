@@ -1,0 +1,12 @@
+.delete-dialog-container {
+  padding: 20px;
+}
+
+.delete-dialog-identifier {
+  color: #673ab7;
+}
+
+.delete-dialog-actions {
+  display: flex;
+  justify-content: space-around;
+}

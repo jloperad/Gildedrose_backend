@@ -1,0 +1,84 @@
+<div class="list-container">
+  <!-- Title -->
+  <div class="list-title-wrapper">
+    <span class="list-title">Items</span>
+    <div class="list-buttons">
+      <button class="list-add-button" (click)="onAddItem()">
+        <mat-icon>add</mat-icon>
+      </button>
+
+      <button
+        class="list-insights-button"
+        (click)="onViewInsights()"
+        data-automation="list-insights-button"
+      >
+        Insights
+      </button>
+
+      <button
+        class="list-update-button"
+        (click)="onUpdateQuality()"
+        data-automation="list-update-quality-button"
+      >
+        Update quality
+      </button>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <mat-card class="list-row list-header">
+    <div class="list-col">Name</div>
+    <div class="list-col">Sell In</div>
+    <div class="list-col">Quality</div>
+    <div class="list-col">Type</div>
+    <div class="list-col">Actions</div>
+  </mat-card>
+
+  <!-- Content -->
+  <div *ngIf="isLoading" class="list-empty">
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!items.length && !isLoading" class="list-empty">
+    <mat-icon class="list-no-info">visibility_off</mat-icon>
+    <span>No items</span>
+  </div>
+
+  <ng-container *ngIf="items.length">
+    <div *ngFor="let item of items">
+      <mat-card data-automation="list-item-row" class="list-row">
+        <div class="list-col">{{ item.name }}</div>
+        <div class="list-col">{{ item.sellIn }}</div>
+        <div class="list-col">{{ item.quality }}</div>
+        <div class="list-col">{{ item.type }}</div>
+        <div class="list-col">
+          <mat-icon
+            data-automation="list-edit-button"
+            class="list-action-icon"
+            color="primary"
+            (click)="onUpdateItem(item)"
+          >
+            edit
+          </mat-icon>
+          <mat-icon
+            data-automation="list-delete-button"
+            class="list-action-icon"
+            color="primary"
+            (click)="onDeleteItem(item)"
+          >
+            delete
+          </mat-icon>
+          <mat-icon
+            data-automation="list-view-button"
+            class="list-action-icon"
+            color="primary"
+            (click)="onViewItem(item)"
+          >
+            visibility
+          </mat-icon>
+        </div>
+      </mat-card>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,38 @@
+<div class="insights-container">
+  <div *ngIf="!dictionaryKeys.length" class="insights-spinner">
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div class="insights-content" *ngIf="dictionaryKeys.length">
+    <span class="insights-title">Insights</span>
+
+    <div class="insights-grid">
+      <div class="insights-header">Item type</div>
+      <div class="insights-header">Amount</div>
+
+      <ng-container *ngFor="let key of dictionaryKeys">
+        <div
+          class="insights-value"
+          [attr.data-automation]="'item-type-' + key | lowercase"
+        >
+          {{ key }}
+        </div>
+        <div
+          class="insights-value"
+          [attr.data-automation]="'item-type-' + key + '-value' | lowercase"
+        >
+          {{ itemsDictionary[key] }}
+        </div>
+      </ng-container>
+    </div>
+
+    <mat-icon
+      data-automation="insights-go-back-button"
+      class="insights-go-back"
+      (click)="onGoBack()"
+    >
+      arrow_back
+    </mat-icon>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+<div class="item-container">
+  <div *ngIf="!item" class="item-spinner">
+    <mat-progress-spinner color="primary" mode="indeterminate">
+    </mat-progress-spinner>
+  </div>
+
+  <div class="item-content" *ngIf="item">
+    <span class="item-title">Item details</span>
+
+    <span class="item-label">Name</span>
+    <span class="item-value">{{ item.name }}</span>
+
+    <span class="item-label">Sell In</span>
+    <span class="item-value">{{ item.sellIn }}</span>
+
+    <span class="item-label">Quality</span>
+    <span class="item-value">{{ item.quality }}</span>
+
+    <span class="item-label">Type</span>
+    <span class="item-value">{{ item.type }}</span>
+
+    <mat-icon
+      data-automation="item-go-back-button"
+      class="item-go-back"
+      (click)="onGoBack()"
+    >
+      arrow_back
+    </mat-icon>
+  </div>
+</div>

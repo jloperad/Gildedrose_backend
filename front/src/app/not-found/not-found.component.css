@@ -1,0 +1,19 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+  color: lightslategray;
+  opacity: 60%;
+}
+
+.not-found-icon {
+  font-size: calc(100vh / 7);
+  height: unset;
+  width: unset;
+}
+
+span {
+  font-size: xx-large;
+  font-weight: bold;
+}

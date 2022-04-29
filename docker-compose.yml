@@ -13,8 +13,18 @@ services:
     container_name: "backend"
     build: .
     ports:
-      - 80:8080
+      - 8080:8080
     environment:
       - DATABASE_HOST=bd
-    links:
+    depends_on:
       - bd
+  front:
+    container_name: "frontend"
+    build:
+      dockerfile: Dockerfile.front
+    ports:
+      - "4200:4200"
+    environment:
+      - BACKEND_HOST=backend
+    depends_on:
+      - backend
