@@ -1,0 +1,6 @@
+In the repository are the files of:
+Dockerfile representing the backend
+Dockerfile.front representing the frontend
+and the docker-compose.yml with the necessary commands to run the 3 containers with the necessary environment variables
+
+To run it, you only need to type "docker-compose up" in your terminal and enter http://localhost:4200/ to check its operation
