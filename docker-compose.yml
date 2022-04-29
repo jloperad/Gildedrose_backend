@@ -18,9 +18,11 @@ services:
       - DATABASE_HOST=bd
     depends_on:
       - bd
-  front:
+
+  frontend:
     container_name: "frontend"
     build:
+      context: .
       dockerfile: Dockerfile.front
     ports:
       - "4200:4200"
