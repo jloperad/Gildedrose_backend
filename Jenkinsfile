@@ -8,7 +8,7 @@ pipeline{
             }
         }
         stage('Enviroment Setup'){
-            enviroment{
+            environment{
                 DATABASEIP=docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres
             }
             steps{
