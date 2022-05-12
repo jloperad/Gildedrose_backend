@@ -10,10 +10,10 @@ pipeline{
         }
         stage('Enviroment Setup'){
             environment{
-                DATABASEIP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres)
+                sh 'DATABASE_HOST=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres)'
             }
             steps{
-                echo "DATABASEIP: ${DATABASEIP}"
+                sh 'echo "DATABASE_HOST: ${DATABASE_HOST}"'
             }
         }
         stage('remove container'){
