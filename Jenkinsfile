@@ -21,7 +21,7 @@ pipeline{
         stage('Build backend'){
             agent any
             steps{
-                sh 'docker build --build-arg DATABASE_HOST=${DB_HOST} -t jloperad/praxis-gildedrose_backend:latest .'
+                sh 'docker build --build-arg DB_H=${DB_HOST} -t jloperad/praxis-gildedrose_backend:latest .'
             }
         }    
         stage('remove container'){
