@@ -5,20 +5,25 @@ pipeline{
             steps{
                 
                 sh 'docker run --name my-postgres -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres'
-                // DB = sh '''docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres'''
             }
         }
         stage('Enviroment Setup'){
             environment{
-                DATABASE_HOST = """${sh(
+                DB_HOST = """${sh(
                 returnStdout: true,
                 script: 'docker inspect -f "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}" my-postgres'
                 )}"""
             }
             steps{
-                sh 'echo "DATABASE_HOST: ${DATABASE_HOST}"'
+                sh 'echo "DB_HOST: ${DB_HOST}"'
             }
         }
+        stage('Build backend'){
+            agent any
+            steps{
+                sh 'docker build --build-arg DATABASE_HOST=${DB_HOST} -t jloperad/praxis-gildedrose_backend:latest .'
+            }
+        }    
         stage('remove container'){
             steps{
                 sh 'docker rm -f my-postgres'
