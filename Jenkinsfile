@@ -19,5 +19,7 @@ pipeline{
         stage('remove container'){
             steps{
                 sh 'docker rm -f my-postgres'
+            }
+        }
     }    
 }
