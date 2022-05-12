@@ -23,7 +23,17 @@ pipeline{
             steps{
                 sh 'docker build --build-arg DB_H=${DB_HOST} -t jloperad/praxis-gildedrose_backend:latest .'
             }
-        }    
+        }   
+        stage('Docker Push') {
+            agent any
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                sh 'docker push jloperad/praxis-gildedrose_backend:latest'
+                sh 'docker logout'
+                }
+            }
+        }   
         stage('remove container'){
             steps{
                 sh 'docker rm -f my-postgres'
