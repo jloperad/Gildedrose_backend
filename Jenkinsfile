@@ -5,12 +5,15 @@ pipeline{
             steps{
                 
                 sh 'docker run --name my-postgres -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres'
-                def db = sh '''docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres'''
+                // DB = sh '''docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres'''
             }
         }
         stage('Enviroment Setup'){
             environment{
-                DATABASE_HOST=db
+                DATABASE_HOST = """${sh(
+                returnStdout: true,
+                script: 'docker inspect -f "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}" my-postgres'
+                )}"""
             }
             steps{
                 sh 'echo "DATABASE_HOST: ${DATABASE_HOST}"'
