@@ -10,7 +10,7 @@ pipeline{
         }
         stage('Enviroment Setup'){
             environment{
-                sh 'DATABASE_HOST=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres)'
+                sh '''DATABASE_HOST=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' my-postgres)'''
             }
             steps{
                 sh 'echo "DATABASE_HOST: ${DATABASE_HOST}"'
