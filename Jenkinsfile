@@ -4,6 +4,7 @@ pipeline{
         stage('Build Database'){
             steps{
                 
+                sh 'docker rm -f $(docker ps -a -q)'
                 sh 'docker run --name my-postgres -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres'
             }
         }
