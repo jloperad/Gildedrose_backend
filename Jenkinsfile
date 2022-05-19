@@ -1,28 +1,17 @@
 pipeline{
     agent any
     stages{
-        stage('Build Database'){
-            steps{
-                
-                sh 'docker rm -f $(docker ps -a -q)'
-                sh 'docker run --name my-postgres -e POSTGRES_PASSWORD=secret -p 5432:5432 -d postgres'
-            }
-        }
         stage('Enviroment Setup'){
             environment{
-                DB_HOST = """${sh(
-                returnStdout: true,
-                script: 'docker inspect -f "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}" my-postgres'
-                )}"""
-            }
-            steps{
-                sh 'echo "DB_HOST: ${DB_HOST}"'
+                DB_HOST = group1-rds.cqqmj66dxtlw.us-east-1.rds.amazonaws.com
+                DB_USER = postgres
+                DB_PASSWORD = postgres
             }
         }
         stage('Build backend'){
             agent any
             steps{
-                sh 'docker build --build-arg DB_H=${DB_HOST} -t jloperad/praxis-gildedrose_backend:latest .'
+                sh 'docker build --build-arg DB_H=${DB_HOST} --build-arg DB_U=${DB_USER} --build-arg DB_P=${DB_PASSWORD} -t jloperad/praxis-gildedrose_backend:latest .'
             }
         }   
         stage('Docker Push') {
@@ -35,10 +24,5 @@ pipeline{
                 }
             }
         }   
-        stage('remove container'){
-            steps{
-                sh 'docker rm -f my-postgres'
-            }
-        }
     }    
 }
