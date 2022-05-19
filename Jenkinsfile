@@ -7,6 +7,11 @@ pipeline{
                 DB_USER = "postgres"
                 DB_PASSWORD = "postgres"
             }
+            steps{
+                sh 'echo "DB_HOST: ${DB_HOST}"'
+                sh 'echo "DB_USER: ${DB_USER}"'
+                sh 'echo "DB_PASSWORD: ${DB_PASSWORD}"'
+            }
         }
         stage('Build backend'){
             agent any
