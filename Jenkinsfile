@@ -3,9 +3,9 @@ pipeline{
     stages{
         stage('Enviroment Setup'){
             environment{
-                DB_HOST = group1-rds.cqqmj66dxtlw.us-east-1.rds.amazonaws.com
-                DB_USER = postgres
-                DB_PASSWORD = postgres
+                DB_HOST = "group1-rds.cqqmj66dxtlw.us-east-1.rds.amazonaws.com"
+                DB_USER = "postgres"
+                DB_PASSWORD = "postgres"
             }
         }
         stage('Build backend'){
