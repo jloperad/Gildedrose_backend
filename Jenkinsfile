@@ -16,7 +16,7 @@ pipeline{
 
         stage('Test'){
             steps{
-                sh 'mvn clean test'
+                sh 'mvn clean compile test'
             }
         }
         stage('Build backend'){
