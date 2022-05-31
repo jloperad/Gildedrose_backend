@@ -15,8 +15,8 @@ pipeline{
         }
         stage('Test'){
             steps{
-                sh './mvn clean compile'
-                sh './mvn clean test'
+                sh './mvnw clean compile'
+                sh './mvnw clean test'
             }
         }
 
