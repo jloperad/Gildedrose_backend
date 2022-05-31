@@ -18,9 +18,8 @@ pipeline{
                 docker "maven"
             }
             steps{
-                sh 'chmod +x mvnw'
-                sh './mvnw clean compile -DDB_HOST=${DB_HOST} -DDB_USER=${DB_USER} -DDB_PASSWORD=${DB_PASSWORD}'
-                sh './mvnw clean test'
+                sh 'mvn clean compile -DDB_HOST=${DB_HOST} -DDB_USER=${DB_USER} -DDB_PASSWORD=${DB_PASSWORD}'
+                sh 'mvn clean test'
             }
         }
 
