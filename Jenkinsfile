@@ -18,7 +18,8 @@ pipeline{
                 docker "maven"
             }
             steps{
-                sh 'mvn test -DDATABASE_HOST_IP=$DB_HOST'
+                sh 'mvn clean compile -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
+                sh 'mvn clean test -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
             }
         }
 
