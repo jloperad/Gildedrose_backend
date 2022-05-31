@@ -1,4 +1,4 @@
-FROM maven:3.8.5-openjdk-18-slim
+FROM maven:3.8.5-openjdk-17-slim
 WORKDIR /usr/src/app
 COPY . .
 ARG DB_H

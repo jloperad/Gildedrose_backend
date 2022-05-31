@@ -14,9 +14,12 @@ pipeline{
             }
         }
         stage('Test'){
+            agent{
+                docker "maven:3.8.5-openjdk-17-slim"
+            }
             steps{
                 sh 'chmod +x mvnw'
-                sh './mvnw clean compile'
+                sh './mvnw clean compile -DDB_HOST=${DB_HOST} -DDB_USER=${DB_USER} -DDB_PASSWORD=${DB_PASSWORD}'
                 sh './mvnw clean test'
             }
         }
