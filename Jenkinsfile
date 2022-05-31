@@ -1,21 +1,14 @@
 pipeline{
     agent any
     stages{
-        stage('Enviroment Setup'){
+        stage('Test'){
+            agent{
+                docker "maven"
+            }
             environment{
                 DB_HOST = "group1-rds.cqqmj66dxtlw.us-east-1.rds.amazonaws.com"
                 DB_USER = "postgres"
                 DB_PASSWORD = "postgres"
-            }
-            steps{
-                sh 'echo "DB_HOST: ${DB_HOST}"'
-                sh 'echo "DB_USER: ${DB_USER}"'
-                sh 'echo "DB_PASSWORD: ${DB_PASSWORD}"'
-            }
-        }
-        stage('Test'){
-            agent{
-                docker "maven"
             }
             steps{
                 sh 'echo "DB_HOST: ${DB_HOST}"'
@@ -26,6 +19,11 @@ pipeline{
 
         stage('Build backend'){
             agent any
+            environment{
+                DB_HOST = "group1-rds.cqqmj66dxtlw.us-east-1.rds.amazonaws.com"
+                DB_USER = "postgres"
+                DB_PASSWORD = "postgres"
+            }
             steps{
                 sh 'docker build --build-arg DB_H=${DB_HOST} --build-arg DB_U=${DB_USER} --build-arg DB_P=${DB_PASSWORD} -t jloperad/praxis-gildedrose_backend:latest .'
             }
