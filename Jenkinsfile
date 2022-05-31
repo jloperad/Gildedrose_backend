@@ -15,6 +15,7 @@ pipeline{
         }
         stage('Test'){
             steps{
+                sh 'chmod +x mvnw'
                 sh './mvnw clean compile'
                 sh './mvnw clean test'
             }
