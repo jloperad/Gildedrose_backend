@@ -9,8 +9,6 @@ ENV DATABASE_HOST = $DB_H
 ENV DATABASE_USER = $DB_U
 ENV DATABASE_PASSWORD = $DB_P
 
+#RUN mvn clean compile test
 
-
-RUN mvn spring-boot:run
-
-CMD mvn clean compile test
+CMD mvn spring-boot:run
