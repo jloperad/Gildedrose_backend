@@ -18,8 +18,8 @@ pipeline{
                 docker "maven"
             }
             steps{
-                sh 'mvn clean compile -DDB_H=${DB_HOST} -DDB_U=${DB_USER} -DDB_P=${DB_PASSWORD}'
-                sh 'mvn clean test -DDB_H=${DB_HOST} -DDB_U=${DB_USER} -DDB_P=${DB_PASSWORD}'
+                sh 'mvn clean compile -DDB_H=$DB_HOST -DDB_U=$DB_USER -DDB_P=$DB_PASSWORD'
+                sh 'mvn clean test -DDB_H=$DB_HOST -DDB_U=$DB_USER -DDB_P=$DB_PASSWORD'
             }
         }
 
