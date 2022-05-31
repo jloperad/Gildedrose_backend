@@ -19,7 +19,7 @@ pipeline{
             }
             steps{
                 sh 'mvn clean compile -DDB_HOST=${DB_HOST} -DDB_USER=${DB_USER} -DDB_PASSWORD=${DB_PASSWORD}'
-                sh 'mvn clean test  -DDB_HOST=${DB_HOST} -DDB_USER=${DB_USER} -DDB_PASSWORD=${DB_PASSWORD}'
+                sh 'mvn test -DDB_HOST=${DB_HOST} -DDB_USER=${DB_USER} -DDB_PASSWORD=${DB_PASSWORD}'
             }
         }
 
