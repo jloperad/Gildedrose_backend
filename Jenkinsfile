@@ -15,7 +15,7 @@ pipeline{
         }
         stage('Test'){
             agent{
-                docker "maven:3.8.5-openjdk-17-slim"
+                docker "maven"
             }
             steps{
                 sh 'chmod +x mvnw'
