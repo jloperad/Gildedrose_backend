@@ -13,6 +13,12 @@ pipeline{
                 sh 'echo "DB_PASSWORD: ${DB_PASSWORD}"'
             }
         }
+        stage('Test'){
+            steps{
+                sh './mvn clean compile'
+                sh './mvn clean test'
+            }
+        }
 
         stage('Build backend'){
             agent any
