@@ -85,7 +85,7 @@ public class ItemServiceTest {
 
         assertEquals(0, itemsUpdated.get(0).getId());
         assertEquals("Bad Bunny Ticket", itemsUpdated.get(0).name);
-        assertEquals(10, itemsUpdated.get(0).sellIn);
+        assertEquals(1, itemsUpdated.get(0).sellIn);
         assertEquals(33, itemsUpdated.get(0).quality);
         assertEquals(Item.Type.TICKETS, itemsUpdated.get(0).type);
         verify(itemRepository,times(1)).save(any());
