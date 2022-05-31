@@ -14,11 +14,6 @@ pipeline{
             }
         }
 
-        stage('Test'){
-            steps{
-                sh 'mvn clean compile test'
-            }
-        }
         stage('Build backend'){
             agent any
             steps{
