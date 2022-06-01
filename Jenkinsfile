@@ -14,7 +14,7 @@ pipeline{
                 sh 'mvn clean compile -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'mvn clean test -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'mvn surefire-report:report -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
-                sh 'cp -R target/site/surefire-report.html */surefire-report.html'
+                sh 'cp -R target/site/surefire-report.html /report/'
             }
         }
 
@@ -47,7 +47,7 @@ pipeline{
                         allowMissing: false,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
-                        reportDir: '**',
+                        reportDir: '/report/',
                         reportFiles: 'surefire-report.html',
                         reportName: 'Unit test Report'
                     ]
