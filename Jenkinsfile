@@ -14,8 +14,7 @@ pipeline{
                 sh 'mvn clean compile -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'mvn clean test -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'mvn surefire-report:report -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
-                sh "mkdir '/reports'"
-                sh 'cp -R target/site/surefire-report.html /reports/'
+                sh 'cp -R target/site/surefire-report.html /report/'
             }
         }
 
