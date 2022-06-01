@@ -11,9 +11,9 @@ pipeline{
                 DB_PASSWORD = "postgres"
             }
             steps{
-                sh 'echo "DB_HOST: ${DB_HOST}"'
                 sh 'mvn clean compile -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'mvn clean test -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
+                sh 'mvn surefire-report:report'
             }
         }
 
@@ -38,5 +38,19 @@ pipeline{
                 }
             }
         }   
+    }
+    post{
+      always{
+        publishHTML (
+                    target : [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: true,
+                        keepAll: true,
+                        reportDir: 'target/site/',
+                        reportFiles: 'surefire-report.html',
+                        reportName: 'Unit test Report'
+                    ]
+                )
+      }
     }    
 }
