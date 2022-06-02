@@ -62,7 +62,7 @@ public class ItemServiceTest {
 
         assertEquals(0, itemsUpdated.get(0).getId());
         assertEquals("Oreo", itemsUpdated.get(0).name);
-        assertEquals(8, itemsUpdated.get(0).sellIn);
+        assertEquals(9, itemsUpdated.get(0).sellIn);
         assertEquals(29, itemsUpdated.get(0).quality);
         assertEquals(Item.Type.NORMAL, itemsUpdated.get(0).type);
         verify(itemRepository,times(1)).save(any());
