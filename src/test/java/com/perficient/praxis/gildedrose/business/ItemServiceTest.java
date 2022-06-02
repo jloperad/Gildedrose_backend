@@ -61,7 +61,7 @@ public class ItemServiceTest {
         List<Item> itemsUpdated = itemService.updateQuality();
 
         assertEquals(0, itemsUpdated.get(0).getId());
-        assertEquals("Oreo", itemsUpdated.get(0).name);
+        assertEquals("Oro", itemsUpdated.get(0).name);
         assertEquals(9, itemsUpdated.get(0).sellIn);
         assertEquals(29, itemsUpdated.get(0).quality);
         assertEquals(Item.Type.NORMAL, itemsUpdated.get(0).type);
