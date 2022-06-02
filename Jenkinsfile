@@ -15,7 +15,7 @@ pipeline{
                 sh 'mvn clean test -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'mvn surefire-report:report -DDATABASE_HOST=${DB_HOST} -DDATABASE_USER=${DB_USER} -DDATABASE_PASSWORD=${DB_PASSWORD}'
                 sh 'cp -R target/site/surefire-report.html report/'
-                sh 'cp -R report/surefire-report.html report/report.html'
+
                 publishHTML (
                     target : [
                         allowMissing: false,
@@ -50,19 +50,5 @@ pipeline{
                 }
             }
         }   
-    }
-    post{
-      always{
-        publishHTML (
-                    target : [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: true,
-                        keepAll: true,
-                        reportDir: 'report',
-                        reportFiles: 'surefire-report.html',
-                        reportName: 'Unit test Report'
-                    ]
-                )
-      }
-    }    
+    }  
 }
