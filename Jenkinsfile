@@ -1,7 +1,10 @@
 pipeline{
+
     agent any
+    
     stages{
-        stage('Test'){
+        
+        stage('Test and Report'){
             agent{
                 docker "maven"
             }
@@ -29,7 +32,7 @@ pipeline{
             }
         }
 
-        stage('Build backend'){
+        stage('Build Backend image'){
             agent any
             environment{
                 DB_HOST = "group1-rds.cqqmj66dxtlw.us-east-1.rds.amazonaws.com"
@@ -40,7 +43,9 @@ pipeline{
                 sh 'docker build --build-arg DB_H=${DB_HOST} --build-arg DB_U=${DB_USER} --build-arg DB_P=${DB_PASSWORD} -t jloperad/praxis-gildedrose_backend:latest .'
             }
         }   
-        stage('Docker Push') {
+
+
+        stage('Docker Push Image') {
             agent any
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
