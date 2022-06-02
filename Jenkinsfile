@@ -47,7 +47,7 @@ pipeline{
                         allowMissing: false,
                         alwaysLinkToLastBuild: true,
                         keepAll: true,
-                        reportDir: 'report/',
+                        reportDir: 'report',
                         reportFiles: 'surefire-report.html',
                         reportName: 'Unit test Report'
                     ]
